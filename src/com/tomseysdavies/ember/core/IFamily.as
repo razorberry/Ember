@@ -8,10 +8,7 @@ package com.tomseysdavies.ember.core
 
 	public interface IFamily extends IDisposable
 	{
-		
-		
-			
-		function remove(entiyId:String):void
+		function remove(entity:IEntity):void
 		/**
 		 *signal that is dispached when entity is added to family. 
 		 *
@@ -28,7 +25,7 @@ package com.tomseysdavies.ember.core
 		 */	
 		function get empty():Boolean;
 		
-		function add(entiyId:String,components:Dictionary):void;
+		function add(entiy:IEntity,components:Dictionary):void;
 		function get first():Node;
 		function get last():Node;
 		function start():void;

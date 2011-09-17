@@ -1,5 +1,7 @@
 package com.tomseysdavies.ember.base
 {
+	import com.tomseysdavies.ember.core.IEntity;
+	
 	import flash.utils.Dictionary;
 
 	public class Node
@@ -7,11 +9,11 @@ package com.tomseysdavies.ember.base
 		
 		public var next:Node;
 		public var previous:Node;
-		public var entityID:String;
+		public var entity:IEntity;
 		
-		public function Node(entityID:String,components:Dictionary)
+		public function Node(entity:IEntity,components:Dictionary)
 		{
-			this.entityID = entityID;
+			this.entity = entity;
 		}
 		
 		public function dispose():void{

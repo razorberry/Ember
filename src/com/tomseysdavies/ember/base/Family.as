@@ -43,8 +43,8 @@ package com.tomseysdavies.ember.base
 		/**
 		 * @inheritDoc
 		 */
-		public function add(entityId:String,components:Dictionary):void{
-			var node:Node = new _Node(entityId,components);
+		public function add(entity:IEntity,components:Dictionary):void{
+			var node:Node = new _Node(entity,components);
 			if(_first){
 				_last.next = node;
 				node.previous = _last;
@@ -52,13 +52,13 @@ package com.tomseysdavies.ember.base
 				_first = node;
 			}
 			_last = node;
-			_nodeMap[entityId] = node;
-			entityAdded.dispatch(entityId);
+			_nodeMap[entity] = node;
+			entityAdded.dispatch(entity);
 		}
 		
-		public function remove(entityId:String):void{
-			entityRemoved.dispatch(entityId);
-			var node:Node = _nodeMap[entityId];
+		public function remove(entity:IEntity):void{
+			entityRemoved.dispatch(entity);
+			var node:Node = _nodeMap[entity];
 			if(!node) return;
 			
 			if(node.previous){
@@ -73,10 +73,9 @@ package com.tomseysdavies.ember.base
 			}
 			updateNode(node.next);
 			node.next = node.previous = null;
-			node.entityID = null;
+			node.entity = null;
 			node.dispose();
-			_nodeMap[entityId] = null;
-			delete _nodeMap[entityId];
+			delete _nodeMap[entity];
 			
 		}
 		

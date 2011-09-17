@@ -19,55 +19,45 @@ package com.tomseysdavies.ember.base{
 	internal class Entity implements IEntity{
 
 		private var _entityManger:IEntityManager;
-		private var _id:String;
 				
-		public function Entity(entityManger:IEntityManager,id:String){
+		public function Entity(entityManger:IEntityManager){
 			_entityManger = entityManger;
-			_id = id;
 		}
 		
 		/**
 		 * @inheritDoc
 		 */
 		public function addComponent(component:Object):void {
-			return _entityManger.addComponent(_id,component);
+			return _entityManger.addComponent(this,component);
 		}
 
 		/**
 		 * @inheritDoc
 		 */
-		public function getComponent(Component:Class):* {
-			return _entityManger.getComponent(_id,Component);						
+		public function getComponent(Component:Class):Object {
+			return _entityManger.getComponent(this,Component);						
 		}
 		
 		/**
 		 * @inheritDoc
 		 */
 		public function getComponents():Dictionary {
-			return _entityManger.getComponents(_id);	
+			return _entityManger.getComponents(this);	
 		}
 		
 		/**
 		 * @inheritDoc
 		 */
 		public function removeComponent(Component:Class):void {
-			_entityManger.removeComponent(_id,Component);
+			_entityManger.removeComponent(this,Component);
 		}
 		
 		/**
 		 * @inheritDoc
 		 */
 		public function dispose():void{
-			_entityManger.removeEntity(_id);
+			_entityManger.removeEntity(this);
 		}
-		
-		/**
-		 * @inheritDoc
-		 */
-		public function get id():String{
-			return _id;
-		}
-
 
 	}
 }

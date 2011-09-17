@@ -21,24 +21,13 @@ package com.tomseysdavies.ember.core{
 		 * @return the new entity
 		 * 
 		 */		
-		function createEntity(id:String = null):IEntity;	
-		
-		/**
-		 * assigns a new entity with the id provided. If no id is provided a unique id will be auto generated.
-		 * 
-		 * If an id is provided but the entityManager already has an entity
-		 * with the same id, no entity will be created.
-		 * 
-		 * @return the entity id
-		 * 
-		 */		
-		function assignEntity(id:String = null):String;	
+		function createEntity():IEntity;	
 		
 		/**
 		 * 
 		 * @return Boolean, true if an entity with the provided id exists.
 		 */
-		function hasEntity(id:String):Boolean;
+		function hasEntity(entity:IEntity):Boolean;
 		
 		/**
 		 * unregisters an entity
@@ -46,7 +35,7 @@ package com.tomseysdavies.ember.core{
 		 * @param entity
 		 * 
 		 */	
-		function removeEntity(entityId:String):void;
+		function removeEntity(entity:IEntity):void;
 		
 		/**
 		 * unregisters all entities and resets the entity manager 
@@ -62,7 +51,7 @@ package com.tomseysdavies.ember.core{
 		 * 
 		 * @return Boolean, true if the component was added.
 		 */	
-		function addComponent(entityId:String,component:Object):void;
+		function addComponent(entity:IEntity,component:Object):void;
 		
 		/**
 		 *retrieves a component
@@ -72,7 +61,7 @@ package com.tomseysdavies.ember.core{
 		 * @return component 
 		 * 
 		 */		
-		function getComponent(entityId:String, Component:Class):*;	
+		function getComponent(entity:IEntity, Component:Class):Object;	
 		
 		/**
 		 *retrieves all of an entities components 
@@ -81,7 +70,7 @@ package com.tomseysdavies.ember.core{
 		 * @return a dictionary of the entites components with the component Class as the key
 		 * 
 		 */		
-		function getComponents(entityId:String):Dictionary;	
+		function getComponents(entity:IEntity):Dictionary;	
 		
 		/**
 		 *unregisters a component from an entity
@@ -90,7 +79,7 @@ package com.tomseysdavies.ember.core{
 		 * @param Component to be unregisters
 		 * 
 		 */	
-		function removeComponent(entityId:String,Component:Class):void;
+		function removeComponent(entity:IEntity,Component:Class):void;
 		
 		/**
 		 *returns a pointer to a list of entities that have a specified set of components

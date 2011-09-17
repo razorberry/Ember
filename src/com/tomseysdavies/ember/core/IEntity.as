@@ -24,7 +24,7 @@ package com.tomseysdavies.ember.core{
 		 * @param Component class name of component to be retrieved
 		 * 
 		 */	
-		function getComponent(Component:Class):*;
+		function getComponent(Component:Class):Object;
 		
 		
 		/**
@@ -42,15 +42,5 @@ package com.tomseysdavies.ember.core{
 		 * 
 		 */	
 		function removeComponent(Component:Class):void;
-		
-		
-		/**
-		 * gets the entities unique id
-		 * 
-		 * @return id unique id
-		 * 
-		 */	
-		function get id():String
-		
 	}
 }
