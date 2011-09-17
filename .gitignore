@@ -7,6 +7,7 @@
 html-template/*
 bin-debug/*
 bin-release/*
+bin/*
 .actionScriptProperties
 .flexProperties
 .flexLibProperties
