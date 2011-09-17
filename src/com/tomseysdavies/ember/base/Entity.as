@@ -16,47 +16,59 @@ package com.tomseysdavies.ember.base{
 	 * this is just class that holds helper functions for convenience.
 	 * @author Tom Davies
 	 */
-	internal class Entity implements IEntity{
+	public class Entity implements IEntity {
 
-		private var _entityManger:IEntityManager;
+		private var _entityManager:IEntityManager;
 				
-		public function Entity(entityManger:IEntityManager){
-			_entityManger = entityManger;
+		public function Entity(entityManger:IEntityManager = null){
+			this.entityManager = entityManger;
 		}
 		
+		public function get entityManager():IEntityManager {
+			return _entityManager;
+		}
+
+		public function set entityManager(value:IEntityManager):void {
+			_entityManager = value;
+		}
+		
+		public function initialize():void {
+			
+		}
+
 		/**
 		 * @inheritDoc
 		 */
 		public function addComponent(component:Object):void {
-			return _entityManger.addComponent(this,component);
+			return _entityManager.addComponent(this,component);
 		}
 
 		/**
 		 * @inheritDoc
 		 */
 		public function getComponent(Component:Class):Object {
-			return _entityManger.getComponent(this,Component);						
+			return _entityManager.getComponent(this,Component);						
 		}
 		
 		/**
 		 * @inheritDoc
 		 */
 		public function getComponents():Dictionary {
-			return _entityManger.getComponents(this);	
+			return _entityManager.getComponents(this);	
 		}
 		
 		/**
 		 * @inheritDoc
 		 */
 		public function removeComponent(Component:Class):void {
-			_entityManger.removeComponent(this,Component);
+			_entityManager.removeComponent(this,Component);
 		}
 		
 		/**
 		 * @inheritDoc
 		 */
 		public function dispose():void{
-			_entityManger.removeEntity(this);
+			_entityManager.removeEntity(this);
 		}
 
 	}

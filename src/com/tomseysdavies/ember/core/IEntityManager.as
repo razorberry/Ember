@@ -21,7 +21,7 @@ package com.tomseysdavies.ember.core{
 		 * @return the new entity
 		 * 
 		 */		
-		function createEntity():IEntity;	
+		function createEntity(entityClass:Class = null):IEntity;	
 		
 		/**
 		 * 
@@ -88,6 +88,6 @@ package com.tomseysdavies.ember.core{
 		 * @return entities with specifed component set
 		 * 
 		 */
-		function getEntityFamily(Node:Class):IFamily
+		function getEntityFamily(...components):IFamily
 	}
 }

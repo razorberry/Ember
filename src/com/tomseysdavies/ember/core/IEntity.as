@@ -10,6 +10,10 @@ package com.tomseysdavies.ember.core{
 	
 	public interface IEntity extends IDisposable{
 		
+		function initialize():void;
+		function get entityManager():IEntityManager;
+		function set entityManager(manager:IEntityManager):void;
+		
 		/**
 		 * registers a compoment with the entity
 		 * 

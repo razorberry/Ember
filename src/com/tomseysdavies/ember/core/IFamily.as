@@ -26,7 +26,7 @@ package com.tomseysdavies.ember.core
 		function get empty():Boolean;
 		
 		function add(entity:IEntity,components:Dictionary):void;
-		function start():void;
+		function start():IEntity;
 		function next():IEntity;
 		function get hasNext():Boolean;
 		function get currentEntity():IEntity;

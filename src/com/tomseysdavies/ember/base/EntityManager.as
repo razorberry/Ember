@@ -23,11 +23,13 @@ package com.tomseysdavies.ember.base {
 		private var _entityMap:Dictionary;
 		private var _families:Dictionary;
 		private var _componentFamilyMap:Dictionary;
+		private var _componentSets:Array;
 		
 		public function EntityManager() {
 			_entityMap = new Dictionary(false);
 			_families = new Dictionary(true);
 			_componentFamilyMap = new Dictionary(true);
+			_componentSets = [];
 		}
 		
 		//---------------------------------------------------------------------
@@ -37,10 +39,14 @@ package com.tomseysdavies.ember.base {
 		/**
 		 * @inheritDoc
 		 */
-		public function createEntity():IEntity{
-			// TODO: Entities don't really need a reference to their manager.
-			var entity:IEntity = new Entity(this);
-			_entityMap[entity] = new Dictionary(true);
+		public function createEntity(entityClass:Class = null):IEntity{
+			entityClass = entityClass || Entity;
+			var entity:IEntity = new entityClass() as IEntity;
+			if (entity) {
+				entity.entityManager = this;
+				_entityMap[entity] = new Dictionary(true);
+				entity.initialize();
+			}
 			return entity;
 		}
 		
@@ -122,8 +128,8 @@ package com.tomseysdavies.ember.base {
 		/**
 		 * @inheritDoc
 		 */
-		public function getEntityFamily(Node:Class):IFamily{
-			return getFamily(Node);
+		public function getEntityFamily(...components):IFamily{
+			return getFamily(components);
 		}
 			
 		/**
@@ -215,21 +221,47 @@ package com.tomseysdavies.ember.base {
 			return _componentFamilyMap[Component] ||= new Vector.<Array>();
 		}
 		
+		
+		
+		/**
+		 * Create a component set containing certain components,
+		 * or grab an existing set from the cache.
+		 */
+		private function getComponentSet(components:Array):ComponentSet {
+			var i:int = _componentSets.length;
+			var f:Function = function(o:Object, index:int, arr:Array):Boolean {
+				return (components.indexOf(o) >= 0);
+			}
+			while (--i >= 0) {
+				if (_componentSets[i].filter(f, this).length == components.length) {
+					return _componentSets[i];
+				}
+			}
+			
+			var cset:ComponentSet = new ComponentSet();
+			for (var j:int = 0; j < components.length; j++) {
+				cset.push(components[j]);
+			}
+			_componentSets.push(cset);
+			return cset;
+		}
+		
 		/**
 		 * retrieves an existing Family with set of Components or creates a new one
 		 */
-		private function getFamily(Node:Class):IFamily{
-			return _families[Node.componentClasses] ||= newFamily(Node,Node.componentClasses);
+		private function getFamily(components:Array):IFamily {
+			var set:ComponentSet = getComponentSet(components);
+			return _families[set] ||= newFamily(set);
 		}
 		
 		/**
 		 * creates a new family and updates references
 		 */
-		private function newFamily(Node:Class,components:Array):IFamily{
+		private function newFamily(components:ComponentSet):IFamily{
 			for each(var Component:Class in components){
 				getFamiliesWithComponent(Component).push(components);
 			}
-			var family:Family = new Family(Node);
+			var family:Family = new Family();
 			populateFamily(family,components)
 			return family;
 		}

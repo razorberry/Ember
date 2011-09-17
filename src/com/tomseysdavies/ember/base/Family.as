@@ -11,18 +11,16 @@ package com.tomseysdavies.ember.base
 	final public class Family implements IFamily
 	{
 
-		private const ENTITY_ADDED:Signal = new Signal(String);
-		private const ENTITY_REMOVED:Signal = new Signal(String);
+		private const ENTITY_ADDED:Signal = new Signal(IEntity);
+		private const ENTITY_REMOVED:Signal = new Signal(IEntity);
 		private var _last:Node;
 		private var _first:Node;
 		private var _nodeMap:Dictionary;
 		private var _currentNode:Node;
-		private var _Node:Class;
 		private var _hasNext:Boolean
 		
-		public function Family(Node:Class)
+		public function Family()
 		{
-			_Node = Node;
 			_nodeMap = new Dictionary(true);
 		}
 				
@@ -44,7 +42,7 @@ package com.tomseysdavies.ember.base
 		 * @inheritDoc
 		 */
 		public function add(entity:IEntity,components:Dictionary):void{
-			var node:Node = new _Node(entity,components);
+			var node:Node = new Node(entity,components);
 			if(_first){
 				_last.next = node;
 				node.previous = _last;
@@ -79,8 +77,8 @@ package com.tomseysdavies.ember.base
 			
 		}
 		
-		public function start():void{
-			updateNode(_first);
+		public function start():IEntity {
+			return updateNode(_first);
 		}
 		
 		public function next():IEntity {
@@ -102,7 +100,7 @@ package com.tomseysdavies.ember.base
 		}
 		
 		public function get currentEntity():IEntity{
-			return _currentNode.entity;
+			return _currentNode ? _currentNode.entity : null;
 		}
 		
 		/**
