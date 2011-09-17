@@ -25,7 +25,7 @@ package com.tomseysdavies.ember.base {
 		private var _componentFamilyMap:Dictionary;
 		
 		public function EntityManager() {
-			_entityMap = new Dictionary(true);
+			_entityMap = new Dictionary(false);
 			_families = new Dictionary(true);
 			_componentFamilyMap = new Dictionary(true);
 		}
