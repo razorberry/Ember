@@ -25,13 +25,11 @@ package com.tomseysdavies.ember.core
 		 */	
 		function get empty():Boolean;
 		
-		function add(entiy:IEntity,components:Dictionary):void;
-		function get first():Node;
-		function get last():Node;
+		function add(entity:IEntity,components:Dictionary):void;
 		function start():void;
-		function next():void;
+		function next():IEntity;
 		function get hasNext():Boolean;
-		function get currentNode():*;
+		function get currentEntity():IEntity;
 
 	}
 }

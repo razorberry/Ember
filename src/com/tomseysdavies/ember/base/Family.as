@@ -83,35 +83,26 @@ package com.tomseysdavies.ember.base
 			updateNode(_first);
 		}
 		
-		public function next():void{
-			if(_currentNode){
-				_currentNode = _currentNode.next;
-			}
-			_hasNext = (_currentNode != null);
+		public function next():IEntity {
+			return updateNode(_currentNode ? _currentNode.next : null);
 		}
 		
 		public function get hasNext():Boolean{
 			return _hasNext;
 		}
 		
-		private function updateNode(node:Node):void{
+		private function updateNode(node:Node):IEntity {
 			_currentNode = node;
-			_hasNext = (currentNode != null);
+			_hasNext = (_currentNode != null);
+			return currentEntity;
 		}
 				
 		public function get empty():Boolean{
 			return (!_first);
 		}
-				
-		public function get first():Node{
-			return _first;
-		}
-		public function get last():Node{
-			return _last;
-		}
 		
-		public function get currentNode():*{
-			return _currentNode;
+		public function get currentEntity():IEntity{
+			return _currentNode.entity;
 		}
 		
 		/**
